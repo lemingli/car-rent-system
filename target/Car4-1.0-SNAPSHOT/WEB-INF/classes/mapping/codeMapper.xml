@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.car.dao.CodeDao">
+    <resultMap id="Code" type="org.car.domain.Code">
+        <id column="city_id" property="codeID" jdbcType="INTEGER" />
+        <result column="city_name" property="codeName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getCityCode" resultMap="Code">
+        select * from sys_city_code
+    </select>
+
+    <select id="getProvinceNameByID" resultType="java.lang.String">
+        select province from sys_city_code where province_code=#{province_id} limit 1
+    </select>
+
+    <select id="getCityNameByID" resultType="java.lang.String">
+        select city from sys_city_code where city_code=#{city_id} limit 1
+    </select>
+
+    <select id="getProvinceCode" resultMap="Code">
+        SELECT distinct province_code as codeID, province as codeName FROM sys_city_code
+    </select>
+
+    <select id="getCityListByProvinceID" resultMap="Code">
+        select distinct city_code as codeID, city as codeName from sys_city_code where province_code = #{province_id}
+    </select>
+
+    <select id="getProvinceCodeByCityID" resultType="java.lang.Integer">
+        SELECT province_code FROM sys_city_code where city_code=#{city_id}
+    </select>
+
+</mapper>

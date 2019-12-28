@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.car.dao.OrderDao">
+
+    <!--<resultMap id="Car" type="org.car.domain.Car">-->
+        <!--<id property="car_id" column="car_id" />-->
+        <!--<result column="car_name" property="car_name" jdbcType="VARCHAR"/>-->
+        <!--<result column="car_image_name" property="car_image_name" jdbcType="VARCHAR"/>-->
+        <!--<result column="car_created_time" property="car_created_time" jdbcType="VARCHAR"/>-->
+        <!--<result column="is_visual" property="is_visual" jdbcType="INTEGER"/>-->
+
+    <!--</resultMap>-->
+
+    <insert id="addOrder" parameterType="org.car.domain.Order">
+        insert into car_order values (#{order_id}, #{created_time}, #{user_id}, #{type_id},#{car_id}, #{store_from_id},#{store_to_id},0,#{price})
+    </insert>
+
+    <select id="getOrderList" resultType="org.car.domain.Order">
+        select * from car_order
+    </select>
+
+    <select id="getOrder" resultType="org.car.domain.Order">
+        SELECT * from car_order where order_id=#{0}
+    </select>
+
+    <update id="updateOrder" parameterType="org.car.domain.Order">
+        update car_order set user_id=#{user_id}, type_id=#{type_id}, car_id=#{car_id},
+        store_from_id=#{store_from_id}, store_to_id=#{store_to_id}, price=#{price} where order_id=#{order_id}
+    </update>
+
+    <update id="updateStatus" parameterType="org.car.domain.Order">
+        update car_order set order_status=1 where order_id=#{order_id}
+    </update>
+
+
+</mapper>

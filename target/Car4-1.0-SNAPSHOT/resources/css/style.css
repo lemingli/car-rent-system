@@ -1,0 +1,172 @@
+/*****导航栏相关css****/
+/*.navbar li:not(:first-child){
+    margin-left: 15px;
+}*/
+
+
+
+.manage-head{
+    color:black;
+}
+
+/*********剪裁图片并预览*********/
+.jcrop-holder #preview-pane {
+    display: block;
+    position: absolute;
+    z-index: 2000;
+    top: 10px;
+    right: -300px;
+    padding: 6px;
+    border: 1px rgba(0,0,0,.4) solid;
+    background-color: white;
+
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+
+    -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* The Javascript code will set the aspect ratio of the crop
+   area based on the size of the thumbnail preview,
+   specified here */
+#preview-pane .preview-container {
+    width: 250px;
+    height: 170px;
+    overflow: hidden;
+}
+
+
+/***当浏览器宽度小于一定时候设置搜索框位置***/
+#top-search{margin-left: 95px}
+@media screen and (max-width: 992px) {
+    #search-item .fa-search {top: 218px}
+    #top-search{margin-left: 0}
+}
+
+/********当浏览器小于一定宽度时候设置首页实体的布局********/
+.card-img-div {height: 200px; width: 250px; padding-left: 0}
+
+@media screen and (max-width: 992px) {
+    #nav-shop img {width: 82px; height: 82px}
+    #nav-shop h4{font-size: 1rem}
+    .location_status_div,.location_address{display: none}
+    .card-img-div {height: 82px; width: 82px}
+}
+
+.footer li:not(:first-child){
+    font-size:14px
+}
+
+.container .navbar{
+    padding-left: 0;
+}
+
+#top-nav .navbar li.active{
+    border-bottom: 2px solid red
+}
+
+.avatar{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.avatar-sm{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+.avatar-lg{
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+.info-form li{
+    color:#808080; font-size:12px
+}
+
+.fa-search{
+    font-size: 20px;
+    margin-left: 10px;
+    top: 18px;
+    position: absolute;
+    color: #77909c;
+}
+
+#searchbox input{
+    padding-left:50px;
+    width:300px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+#searchbox input:focus{
+    width:450px;
+    border: 1px solid rgba(0,0,0,.15);
+    background-color: white;
+}
+#searchbox .active{
+    background-color:#EEEEEE
+}
+
+.follow-button{
+    background-color: #128fdc;
+    color: #ffffff;
+}
+
+/*******主要的container主要定义margin等*******/
+.main-container{
+    margin-top: 10px;
+}
+
+/***** 顶部导航栏 *****/
+/*#navbarNavDropdown a{
+    color: white;
+}
+#top-nav .navbar-brand{
+    color: white;
+}*/
+
+/***** 用户页面的子菜单 *****/
+#location-sub-menu-wrapper,#location-sub-menu-wrapper nav, #user-sub-nav, #user-sub-nav nav{
+    width: 100%;
+    background-color: #fff;
+    height: 50px;
+    position: relative;
+    overflow: visible;
+    box-shadow: inset 0 -2px transparent;
+    border-bottom: 1px solid hsla(0,0%,54%,.3);
+    box-sizing: border-box;
+}
+
+#location-sub-menu-wrapper{
+    margin-bottom: 10px;
+}
+
+.entity_address{
+    width: 480px;
+    display: inline-block;
+    margin-left: -35px;
+}
+.card-img-top{
+    width:250px;
+    height: 190px;
+}
+.location_info{
+    padding-left:20px;margin-left: 30px
+}
+.entity_item{
+    margin: 20px 0 0 0;
+    padding: 0;
+}
+.location_status_div div{
+    padding: 0;
+}
+.status_name{
+    margin-right: 20px;
+}
+.location_address{
+    width: 100%;
+}

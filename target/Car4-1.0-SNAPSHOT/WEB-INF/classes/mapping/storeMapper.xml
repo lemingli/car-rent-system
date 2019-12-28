@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.car.dao.StoreDao">
+
+
+    <insert id="addStore" parameterType="org.car.domain.Store">
+        insert into store values (#{store_id}, #{store_name}, #{store_address}, #{store_phone}, #{open_time},0)
+    </insert>
+
+    <select id="getStoreList" resultType="org.car.domain.Store">
+        select * from store
+    </select>
+
+    <select id="getStore" resultType="org.car.domain.Store">
+        SELECT * from store where store_id=#{0}
+    </select>
+
+    <update id="updateStore" parameterType="org.car.domain.Store">
+        update store set store_name=#{store_name}, store_address=#{store_address}, store_phone=#{store_phone}, open_time=#{open_time}
+         where store_id=#{store_id}
+    </update>
+
+</mapper>

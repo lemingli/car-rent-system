@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.car.dao.SysDao">
+
+
+    <!-- 测试 查找 -->
+    <select id="queryRowsNumberByParameters" resultType="java.lang.Integer">
+        select count(1) from ${param1} where ${param2} = #{2}
+    </select>
+
+    <select id="queryRowsNumber" parameterType="string" resultType="java.lang.Integer">
+        select count(1) from ${_parameter}
+    </select>
+
+    <select id="getMaxNumber" resultType="java.lang.Long">
+        select ifnull(max(${param2}),0) from ${param1}
+    </select>
+
+
+
+</mapper>

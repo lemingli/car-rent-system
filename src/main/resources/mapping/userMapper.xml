@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.car.dao.UserDao">
+
+
+    <!-- 测试 查找 -->
+    <insert id="registerUser" parameterType="org.car.domain.UserRegisterInfo">
+        insert into users values(#{user_id},#{user_name},#{user_password},#{user_created_time},#{user_email},#{user_phone},#{enabled})
+    </insert>
+
+    <insert id="insertUserProfileInfo" parameterType="org.car.domain.UserRegisterInfo">
+        insert into users_profile(`user_id`,`user_name`,`user_email`,`user_created_time`) values(#{user_id},#{user_name},#{user_email},#{user_created_time})
+    </insert>
+
+
+    <insert id="insertUserEmailValidateCode">
+        insert into users_email_validate values(#{0},#{1},#{2},"")
+    </insert>
+
+
+    <select id="getUserAuthorities">
+        select authorities from authorities where user_id=#{0}
+    </select>
+
+    <select id="getUserAuthoritiesByUserName" resultType="java.lang.String">
+        select authority from (select user_id from localgo.users_profile where user_name=#{0} union select user_id from localgo.users_weixin_profile where user_name='小木') a, authorities b
+        where a.user_id=b.user_id;
+    </select>
+
+    <select id="getUserAuthoritiesByUserEmail" resultType="java.lang.String">
+        select authority from (select user_id from localgo.users_profile where user_email=#{0} union select user_id from localgo.users_weixin_profile where user_email='小木') a, authorities b
+        where a.user_id=b.user_id;
+    </select>
+
+    <!--<select id="validateEmail" resultType="java.lang.Integer">
+        select count(1) from users where user_email=#{user_email} and validate_code=#{validate_code}
+    </select>-->
+
+    <select id="validateEmail" resultType="java.lang.Integer">
+        select count(1) from users_email_validate where
+        date_add(validate_code_created_time, interval"48:0:0" day_second) > DATE_FORMAT(#{0},'%Y-%m-%d %h:%m:%s')
+        and user_email = #{1} and validate_code=#{2}
+    </select>
+
+    <update id="updateUserEmailValidateTime">
+        update users_email_validate set validate_time=#{1} where user_email = #{0}
+    </update>
+
+    <update id="updateUserEmailValidate">
+        update users set enabled=1 where user_email = #{0}
+    </update>
+
+    <select id="getUserPassword" resultType="java.lang.String">
+        select user_password from users where user_email = #{0}
+    </select>
+
+    <select id="getUserByEmail" resultType="org.car.domain.UserInfo">
+        select * from users where user_email=#{0}
+    </select>
+
+    <select id="getUserAuthWithAllInformationByEmail" resultType="org.car.domain.UserInfo">
+        select * from users a, users_profile b where a.user_email=#{0} and a.user_id=b.user_id;
+    </select>
+
+    <select id="getUserAuthWithAllInformationByUsername" resultType="org.car.domain.UserInfo">
+        select * from users a, users_profile b where a.user_name=#{0} and a.user_id=b.user_id;
+    </select>
+
+    <select id="getUserByUserName" resultType="org.car.domain.UserInfo">
+        select * from users where user_name=#{0}
+    </select>
+
+    <select id="getUserByUserID" parameterType="java.lang.Long" resultType="org.car.domain.UserInfo">
+        select user_id,user_name,user_avatars,user_email,user_introduction,user_province,user_city,user_country,user_birthday,user_sex,user_created_time from users_profile where user_id=#{0}
+        union select user_id,user_name,user_avatars,user_email,user_introduction,user_province,user_city,user_country,user_birthday,user_sex,user_created_time from users_weixin_profile  where user_id=#{0}
+    </select>
+
+    <update id="addUserAvatars">
+        update users_profile set user_avatars=#{param2} where user_id = ${param1}
+    </update>
+
+    <update id="updateUserProfile" parameterType="org.car.domain.UserInfo">
+        update users_profile set user_province=${user_province},user_city=${user_city},user_birthday=#{user_birthday},user_introduction=#{user_introduction},user_sex=${user_sex} where user_id = ${user_id}
+    </update>
+
+    <update id="updateUserBasicInfo" parameterType="org.car.domain.UserInfo">
+        update users_profile set user_province=${user_province},user_city=${user_city},user_birthday=#{user_birthday},user_introduction=#{user_introduction},
+        user_sex=${user_sex},user_sex_orientation=${user_sex_orientation},user_relationships_status=${user_relationships_status},user_blood_type=${user_blood_type}
+        where user_id = ${user_id}
+    </update>
+
+    <update id="updateUserContactInfo" parameterType="org.car.domain.UserInfo">
+        update users_profile set user_email=#{user_email},user_qq=#{user_qq},user_wechat=#{user_wechat},user_weibo=$#user_weibo},user_telephone=#{user_telephone}
+        where user_id = ${user_id}
+    </update>
+
+
+</mapper>
